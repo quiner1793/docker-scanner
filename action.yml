@@ -16,3 +16,7 @@ runs:
       env:
         SCANNER_VERSION: 0.0.1
         SCAN_DIR: ${{ inputs.scan_dir }}
+
+branding:
+  icon: box
+  color: black
