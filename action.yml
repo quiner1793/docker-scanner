@@ -10,6 +10,8 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
     - name: Run docker scanner
       run: |
         ls -la # List files in the current directory for debugging
