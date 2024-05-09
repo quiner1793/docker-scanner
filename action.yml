@@ -7,6 +7,10 @@ inputs:
     description: 'Path to directory to scan'
     required: true
     default: './'
+  recurse_scan:
+    description: 'Scan all directories recursively'
+    required: false
+    default: 'false'
 runs:
   using: "composite"
   steps:
@@ -17,11 +21,12 @@ runs:
         export IMAGE_NAME="quiner/docker_scanner:$SCANNER_VERSION"
         echo "Using image: $IMAGE_NAME"
         docker pull "$IMAGE_NAME"
-        docker run -v "$SCAN_DIR"/:/scan_dir:ro -v /var/run/docker.sock:/var/run/docker.sock --env scan_dir=/scan_dir "$IMAGE_NAME"
+        docker run -v "$SCAN_DIR"/:/scan_dir:ro -v /var/run/docker.sock:/var/run/docker.sock --env scan_dir=/scan_dir --env RECURSE=$RECURSE "$IMAGE_NAME"
       shell: bash
       env:
-        SCANNER_VERSION: 0.0.1
+        SCANNER_VERSION: 1.0.0
         SCAN_DIR: ${{ inputs.scan_dir }}
+        RECURSE: ${{ inputs.recurse_scan }}
 
 branding:
   icon: box
