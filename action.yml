@@ -11,7 +11,9 @@ runs:
   using: "composite"
   steps:
     - name: Run docker scanner
-      run: run_scanner.sh
+      run: |
+        ls -la # List files in the current directory for debugging
+        ./run_scanner.sh
       shell: bash
       env:
         SCANNER_VERSION: 0.0.1
