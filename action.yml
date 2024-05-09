@@ -14,8 +14,10 @@ runs:
       uses: actions/checkout@v4
     - name: Run docker scanner
       run: |
-        ls -la # List files in the current directory for debugging
-        ./run_scanner.sh
+        export IMAGE_NAME="quiner/docker_scanner:$SCANNER_VERSION"
+        echo "Using image: $IMAGE_NAME"
+        docker pull "$IMAGE_NAME"
+        docker run -v "$SCAN_DIR"/:/scan_dir:ro -v /var/run/docker.sock:/var/run/docker.sock --env scan_dir=/scan_dir "$IMAGE_NAME"
       shell: bash
       env:
         SCANNER_VERSION: 0.0.1
