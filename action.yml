@@ -1,0 +1,18 @@
+name: "Scan Docker configs"
+description: "Scan Docker configs when PR is open"
+author: "Anatoliy Shvarts"
+
+inputs:
+  scan_dir:
+    description: 'Path to directory to scan'
+    required: true
+    default: './'
+runs:
+  using: "composite"
+  steps:
+    - name: Run docker scanner
+      run: run_scanner.sh
+      shell: bash
+      env:
+        SCANNER_VERSION: 0.0.1
+        SCAN_DIR: ${{ inputs.scan_dir }}
